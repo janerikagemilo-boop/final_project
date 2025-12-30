@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Play Tic Tac Toe</title>
+    <link rel="stylesheet" href="./vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="./img/logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Define the custom font */
+      @font-face {
+        font-family: "HowToPlayFont";
+        src: url("/CourierPrime-Bold.ttf") format("truetype");
+      }
+
+      /* Apply to all text elements */
+      body {
+        font-family: "HowToPlayFont", "Arial", sans-serif;
+      }
+
+      /* Specific styling for headers */
+      header h1,
+      .content h1 {
+        font-family: "HowToPlayFont", "Arial", sans-serif;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+
+      /* Instruction items */
+      .instruction-item {
+        font-family: "HowToPlayFont", "Arial", sans-serif;
+        font-size: 1.1rem;
+      }
+
+      /* Buttons */
+      button {
+        font-family: "HowToPlayFont", "Arial", sans-serif;
+        font-weight: bold;
+      }
+
+      /* Keep Font Awesome icons working */
+      .fas,
+      .fa {
+        font-family: "Font Awesome 6 Free" !important;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="background-music" src="/DXRK.mp3" loop></audio>
+    <div class="volume-control">
+      <button id="mute-toggle" class="sound-btn">
+        <span id="sound-icon">🔊</span>
+        <input type="range" id="volume-slider" min="0" max="100" value="50" />
+      </button>
+    </div>
+
+    <header>
+      <h1><i class="fas fa-graduation-cap"></i> HOW TO PLAY</h1>
+    </header>
+
+    <div class="content">
+      <div class="game-overview">
+        <p>
+          <i class="fas fa-bullseye"></i> Tic Tac Toe is an easy and enjoyable
+          game designed for two players.
+        </p>
+        <p>
+          The objective is to place three of your marks (“X” or “O”) in a row
+          horizontally, vertically, or diagonally before your opponent does.
+        </p>
+      </div>
+
+      <h1><i class="fas fa-book-open"></i> INSTRUCTIONS</h1>
+
+      <div class="instructions-list">
+        <div class="instruction-item">
+          <i class="fas fa-play-circle" style="color: #29c4ff"></i>
+          <strong>Player 1</strong> starts by placing an "X" in one of the empty
+          boxes.
+        </div>
+
+        <div class="instruction-item">
+          <i class="fas fa-play-circle" style="color: #ff416c"></i>
+          <strong>Player 2</strong> then places an "O" in one of the remaining
+          empty boxes.
+        </div>
+
+        <div class="instruction-item">
+          <i class="fas fa-exchange-alt" style="color: #29ffc4"></i>
+          Players take turns marking squares until one of the following happens:
+        </div>
+
+        <div class="instruction-item">
+          <i class="fas fa-trophy" style="color: gold"></i>
+          A player wins by placing three of their marks in a row (horizontally,
+          vertically, or diagonally).
+        </div>
+
+        <div class="instruction-item">
+          <i class="fas fa-handshake" style="color: #aaa"></i>
+          The game ends in a draw if all boxes are filled and no player has won.
+        </div>
+
+        <div class="instruction-item">
+          <i class="fas fa-redo" style="color: #29c4ff"></i>
+          After a game is over, click the Play Again button to start a new game.
+        </div>
+      </div>
+
+      <h1><i class="fas fa-lightbulb"></i> TIPS & STRATEGY</h1>
+      <div class="instructions-list">
+        <div class="instruction-item">
+          <i class="fas fa-chess-board"></i>
+          Try to create "forks" - positions where you have two ways to win on
+          your next turn
+        </div>
+        <div class="instruction-item">
+          <i class="fas fa-shield-alt"></i>
+          Always block your opponent if they have two in a row
+        </div>
+        <div class="instruction-item">
+          <i class="fas fa-star"></i>
+          The center square is the most valuable position on the board
+        </div>
+      </div>
+
+      <button id="back-to-menu">
+        <i class="fas fa-arrow-left"></i> Back to Menu
+      </button>
+    </div>
+
+    <script>
+      document.getElementById("back-to-menu").addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+    </script>
+    <script src="./menu.js" type="module"></script>
+  </body>
+</html>

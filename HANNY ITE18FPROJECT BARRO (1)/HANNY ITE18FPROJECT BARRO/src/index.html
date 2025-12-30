@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A fun and interactive Tic Tac Toe game with modern features"
+    />
+    <title>Tic Tac Toe - Main Menu</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="./img/logo.png" />
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
+
+    <style>
+      @font-face {
+        font-family: "GameFont";
+        src: url("/CourierPrime-Bold.ttf") format("truetype");
+      }
+
+      /* Apply font to key elements */
+      .logo h1,
+      .menu-btn,
+      .modal-content h2 {
+        font-family: "GameFont", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="particles-container" id="particles"></div>
+
+    <div class="menu-container">
+      <div class="logo">
+        <h1>✗⭕ Tic Tac Toe</h1>
+        <div class="subtitle">The Ultimate Challenge</div>
+      </div>
+
+      <div class="menu-buttons">
+        <button id="start-btn" class="menu-btn">
+          <span class="btn-icon">▶</span> START GAME
+        </button>
+        <button id="how-to-play-btn" class="menu-btn">
+          <span class="btn-icon">❓</span> HOW TO PLAY
+        </button>
+        <button id="about-btn" class="menu-btn">
+          <span class="btn-icon">ℹ</span> ABOUT
+        </button>
+        <button id="settings-btn" class="menu-btn">
+          <span class="btn-icon">⚙</span> SETTINGS
+        </button>
+        <button id="exit-btn" class="menu-btn exit">
+          <span class="btn-icon">✖</span> EXIT
+        </button>
+      </div>
+
+      <div class="menu-footer">
+        <div class="volume-control">
+          <button id="mute-toggle" class="sound-btn">
+            <span id="sound-icon">🔊</span>
+          </button>
+          <input type="range" id="volume-slider" min="0" max="100" value="50" />
+        </div>
+        <div class="version">Made by "JanAzaLyn"</div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>⚙ Game Settings</h2>
+
+        <div class="setting-group">
+          <h3>Game Mode</h3>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="game-mode" value="pvp" checked />
+              <span>Player vs Player</span>
+            </label>
+            <label>
+              <input type="radio" name="game-mode" value="pvc" />
+              <span>Player vs Computer</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3>Difficulty (AI)</h3>
+          <select id="ai-difficulty" disabled>
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <h3>Board Style</h3>
+          <div class="style-options">
+            <div class="style-option active" data-style="default">
+              <div class="style-preview default"></div>
+              <span>Default</span>
+            </div>
+            <div class="style-option" data-style="neon">
+              <div class="style-preview neon"></div>
+              <span>Neon</span>
+            </div>
+            <div class="style-option" data-style="classic">
+              <div class="style-preview classic"></div>
+              <span>Classic</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3>Sound Effects</h3>
+          <div class="toggle-group">
+            <label class="toggle">
+              <input type="checkbox" id="sfx-toggle" checked />
+              <span class="toggle-slider"></span>
+            </label>
+            <span>Enable SFX</span>
+          </div>
+        </div>
+
+        <button id="save-settings" class="save-btn">Save Settings</button>
+      </div>
+    </div>
+
+    <!-- How to Play Modal -->
+    <div id="how-to-play-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>❓ How to Play</h2>
+        <div class="instructions">
+          <h3>Game Rules:</h3>
+          <ul>
+            <li>Two players take turns marking cells in a 3x3 grid</li>
+            <li>Player 1 uses <strong style="color: #39ff14">X</strong></li>
+            <li>Player 2 uses <strong style="color: #00ff00">O</strong></li>
+            <li>First player to get 3 in a row wins</li>
+            <li>
+              The game can be played vertically, horizontally, or diagonally
+            </li>
+          </ul>
+
+          <h3>Controls:</h3>
+          <ul>
+            <li><strong>Click</strong> on any empty cell to place your mark</li>
+            <li><strong>Undo Move</strong>: Take back your last move</li>
+            <li><strong>New Game</strong>: Start a fresh game</li>
+            <li><strong>Hint</strong>: Get a suggested move (vs AI only)</li>
+          </ul>
+
+          <h3>Game Modes:</h3>
+          <ul>
+            <li>
+              <strong>Player vs Player</strong>: Play against a friend locally
+            </li>
+            <li>
+              <strong>Player vs Computer</strong>: Challenge the AI at different
+              difficulty levels
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>ℹ About Tic Tac Toe</h2>
+        <div class="about-content">
+          <p>
+            This Tic Tac Toe game is a modern implementation of the classic
+            paper-and-pencil game.
+          </p>
+
+          <h3>Features:</h3>
+          <ul>
+            <li>🎮 Multiple game modes (PvP and PvAI)</li>
+            <li>⚡ Neon green visual theme</li>
+            <li>📊 Score tracking and game history</li>
+            <li>🎵 Sound effects and volume control</li>
+            <li>📱 Responsive design for all devices</li>
+            <li>🎯 Multiple AI difficulty levels</li>
+            <li>🔧 Customizable settings</li>
+          </ul>
+
+          <h3>Version Information:</h3>
+          <p>
+            <strong>Version:</strong> 2.0<br />
+            <strong>Release Date:</strong> 2024<br />
+            <strong>Developed with:</strong> HTML, CSS, JavaScript
+          </p>
+
+          <div class="credits">
+            <h3>Credits:</h3>
+            <p>Game Design & Development: Your Name Here</p>
+            <p>Sound Effects: FreeSFX</p>
+            <p>Font: Courier Prime</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Container (Hidden initially) -->
+    <div id="game-container" class="game-container" style="display: none">
+      <div class="game-header">
+        <button id="back-to-menu" class="back-btn">
+          <span>←</span> BACK TO MENU
+        </button>
+        <div class="game-info">
+          <div class="game-mode">
+            <span>🎮</span>
+            <span id="current-mode">Player vs Player</span>
+          </div>
+          <div class="game-difficulty">
+            <span>⚡</span>
+            <span id="current-difficulty">Medium</span>
+          </div>
+          <div class="moves-count">
+            <span>🔢</span>
+            <span id="move-count">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-content">
+        <div class="player-turn">
+          <div class="turn-indicator">
+            <div class="player-x active" id="player-x">
+              <div class="player-symbol">✗</div>
+              <div class="player-label">PLAYER X</div>
+              <div class="player-score" id="score-x">0</div>
+            </div>
+            <div class="vs">VS</div>
+            <div class="player-o" id="player-o">
+              <div class="player-symbol">⭕</div>
+              <div class="player-label">PLAYER O</div>
+              <div class="player-score" id="score-o">0</div>
+            </div>
+          </div>
+          <div class="current-turn">
+            <h3>CURRENT TURN</h3>
+            <div class="current-player" id="current-player">
+              <div class="turn-highlight"></div>
+              ✗
+            </div>
+          </div>
+        </div>
+
+        <div class="game-board" id="game-board">
+          <!-- Game cells will be generated by JavaScript -->
+          <div class="board-cell" data-cell="0"></div>
+          <div class="board-cell" data-cell="1"></div>
+          <div class="board-cell" data-cell="2"></div>
+          <div class="board-cell" data-cell="3"></div>
+          <div class="board-cell" data-cell="4"></div>
+          <div class="board-cell" data-cell="5"></div>
+          <div class="board-cell" data-cell="6"></div>
+          <div class="board-cell" data-cell="7"></div>
+          <div class="board-cell" data-cell="8"></div>
+        </div>
+
+        <div class="game-controls">
+          <button id="undo-btn" class="control-btn" disabled>
+            <span>↶</span> UNDO
+          </button>
+          <button id="new-game-btn" class="control-btn">
+            <span>🔄</span> NEW GAME
+          </button>
+          <button id="hint-btn" class="control-btn" disabled>
+            <span>💡</span> HINT
+          </button>
+          <button id="restart-btn" class="control-btn">
+            <span>⏮</span> RESTART
+          </button>
+        </div>
+      </div>
+
+      <div class="game-sidebar">
+        <div class="scoreboard">
+          <h3>🏆 SCOREBOARD</h3>
+          <div class="score-item">
+            <span class="player-name">Player X</span>
+            <span class="score" id="total-score-x">0</span>
+          </div>
+          <div class="score-item">
+            <span class="player-name">Player O</span>
+            <span class="score" id="total-score-o">0</span>
+          </div>
+          <div class="score-item draws">
+            <span class="player-name">Draws</span>
+            <span class="score" id="total-draws">0</span>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <span>Games Played:</span>
+              <span id="games-played">0</span>
+            </div>
+            <div class="stat">
+              <span>Win Rate X:</span>
+              <span id="win-rate-x">0%</span>
+            </div>
+            <div class="stat">
+              <span>Win Rate O:</span>
+              <span id="win-rate-o">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-history">
+          <h4>📜 GAME HISTORY</h4>
+          <div id="history-list">
+            <!-- History items will be added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="result-modal" class="modal">
+      <div class="modal-content result-modal">
+        <div class="result-icon" id="result-icon">🏆</div>
+        <h2 id="result-title">VICTORY!</h2>
+        <p id="result-message">Player X wins the game!</p>
+
+        <div class="result-stats">
+          <div class="stat-item">
+            <span>Moves</span>
+            <span id="result-moves">0</span>
+          </div>
+          <div class="stat-item">
+            <span>Time</span>
+            <span id="result-time">0s</span>
+          </div>
+          <div class="stat-item">
+            <span>Winner</span>
+            <span id="result-winner">X</span>
+          </div>
+        </div>
+
+        <div class="result-buttons">
+          <button id="play-again-btn" class="result-btn primary">
+            PLAY AGAIN
+          </button>
+          <button id="back-to-menu-btn" class="result-btn">BACK TO MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./audio.js" type="module"></script>
+    <script src="./utils.js" type="module"></script>
+    <script src="./menu.js" type="module"></script>
+  </body>
+</html>

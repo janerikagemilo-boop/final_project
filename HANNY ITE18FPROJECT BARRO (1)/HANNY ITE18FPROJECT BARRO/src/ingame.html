@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe - Game</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="./img/logo.png" />
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <style>
+      @font-face {
+        font-family: "TicTacFont";
+        src: url("/CourierPrime-Bold.ttf") format("truetype");
+      }
+
+      /* Quick application to game elements */
+      body {
+        font-family: "TicTacFont", sans-serif;
+      }
+
+      /* Apply specifically to game elements */
+      .game-header button,
+      .control-btn,
+      .scoreboard h3,
+      .scoreboard .player-name,
+      .modal-content h2,
+      .result-btn {
+        font-family: "TicTacFont", sans-serif;
+        font-weight: bold;
+      }
+
+      /* Keep X/O symbols in default font */
+      .player-symbol,
+      .cell {
+        font-family: "Arial", sans-serif;
+      }
+
+      /* Make the game board larger */
+      .game-board {
+        width: 400px !important;
+        height: 400px !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: repeat(3, 1fr) !important;
+        gap: 15px !important;
+        margin: 0 auto !important;
+      }
+
+      /* Make cells bigger */
+      .cell {
+        width: 150px !important;
+        height: 150px !important;
+        font-size: 80px !important;
+        border-radius: 20px !important;
+        border: 4px solid #4a5568 !important;
+      }
+
+      /* Make controls bigger */
+      .game-controls {
+        margin-top: 20px !important;
+      }
+
+      .control-btn {
+        padding: 15px 25px !important;
+        font-size: 18px !important;
+        margin: 0 10px !important;
+      }
+
+      /* Adjust overall container */
+      .game-container {
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
+      }
+
+      /* Make the current player indicator more prominent */
+      #current-player {
+        font-size: 60px !important;
+        width: 80px !important;
+        height: 80px !important;
+        line-height: 80px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="game-header">
+        <button id="back-to-menu" class="back-btn">
+          <span class="btn-icon">←</span> MENU
+        </button>
+
+        <div class="game-info">
+          <div class="timer">
+            <span>⏱</span>
+            <span id="game-timer">00:00</span>
+          </div>
+          <div class="moves">
+            <span>🎮</span>
+            <span id="move-counter">0</span>
+          </div>
+        </div>
+
+        <div class="sound-control">
+          <button id="mute-toggle" class="sound-btn">
+            <span id="sound-icon">🔊</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="game-content">
+        <div class="player-turn">
+          <div class="turn-indicator">
+            <div class="player-x active">
+              <span class="player-symbol">X</span>
+              <span class="player-label">Player 1</span>
+            </div>
+            <div class="vs">VS</div>
+            <div class="player-o">
+              <span class="player-symbol">O</span>
+              <span class="player-label">Player 2</span>
+            </div>
+          </div>
+
+          <div class="current-turn">
+            <h3>Current Turn:</h3>
+            <div class="current-player" id="current-player">X</div>
+            <div class="turn-highlight"></div>
+          </div>
+        </div>
+
+        <div class="game-board" id="game-board">
+          <!-- Grid will be generated dynamically -->
+        </div>
+
+        <div class="game-controls">
+          <button id="reset-game" class="control-btn">
+            <span class="btn-icon">🔄</span> RESET
+          </button>
+          <button id="undo-move" class="control-btn" disabled>
+            <span class="btn-icon">↶</span> UNDO
+          </button>
+          <button id="hint-btn" class="control-btn">
+            <span class="btn-icon">💡</span> HINT
+          </button>
+        </div>
+      </div>
+
+      <div class="game-sidebar">
+        <div class="scoreboard">
+          <h3>📊 SCOREBOARD</h3>
+          <div class="score-item">
+            <span class="player-name">Player X</span>
+            <span class="score" id="x-wins">0</span>
+          </div>
+          <div class="score-item">
+            <span class="player-name">Player O</span>
+            <span class="score" id="o-wins">0</span>
+          </div>
+          <div class="score-item draws">
+            <span class="player-name">Draws</span>
+            <span class="score" id="draws">0</span>
+          </div>
+
+          <div class="stats">
+            <h4>Game Stats</h4>
+            <div class="stat">
+              <span>Win Rate (X):</span>
+              <span id="x-win-rate">0%</span>
+            </div>
+            <div class="stat">
+              <span>Win Rate (O):</span>
+              <span id="o-win-rate">0%</span>
+            </div>
+            <div class="stat">
+              <span>Avg Game Time:</span>
+              <span id="avg-time">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-history">
+          <h4>📝 Recent Games</h4>
+          <div id="history-list"></div>
+        </div>
+      </div>
+
+      <div id="game-result-modal" class="modal">
+        <div class="modal-content result-modal">
+          <div class="result-icon" id="result-icon">🎉</div>
+          <h2 id="result-title">Victory!</h2>
+          <p id="result-message">Player X wins the game!</p>
+
+          <div class="result-stats">
+            <div class="stat-item">
+              <span>Moves:</span>
+              <span id="result-moves">0</span>
+            </div>
+            <div class="stat-item">
+              <span>Time:</span>
+              <span id="result-time">00:00</span>
+            </div>
+          </div>
+
+          <div class="result-buttons">
+            <button id="play-again" class="result-btn primary">
+              PLAY AGAIN
+            </button>
+            <button id="menu-from-result" class="result-btn">MAIN MENU</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./audio.js" type="module"></script>
+    <script src="./utils.js" type="module"></script>
+    <script src="./game.js" type="module"></script>
+  </body>
+</html>

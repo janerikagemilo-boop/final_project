@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Tic Tac Toe</title>
+    <link rel="stylesheet" href="./vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="./img/logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @font-face {
+        font-family: "GameFont";
+        src: url("/CourierPrime-Bold.ttf") format("truetype");
+      }
+
+      /* Apply font immediately */
+      body {
+        font-family: "GameFont", "Arial", sans-serif;
+      }
+
+      header h1,
+      h1,
+      h2,
+      h3,
+      .developer-card h2,
+      button {
+        font-family: "GameFont", "Arial", sans-serif;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="background-music" src="/DXRK.mp3" loop></audio>
+    <div class="volume-control">
+      <button id="mute-toggle" class="sound-btn">
+        <span id="sound-icon">🔊</span>
+        <input type="range" id="volume-slider" min="0" max="100" value="50" />
+      </button>
+    </div>
+
+    <header>
+      <h1><i class="fas fa-info-circle"></i> ABOUT THIS GAME</h1>
+    </header>
+
+    <section class="content">
+      <div class="about-intro">
+        <p>
+          <i class="fas fa-gamepad"></i> Tic Tac Toe is a timeless two-player
+          game that has entertained players for generations. Simple to learn yet
+          always engaging, it offers a fun challenge every time you play.
+        </p>
+        <p>
+          Whether you’re new to the game or a seasoned player, Tic Tac Toe never
+          loses its charm!
+        </p>
+      </div>
+
+      <h1><i class="fas fa-award"></i> CREDITS</h1>
+      <h3><i class="fas fa-users"></i> DEVELOPERS</h3>
+
+      <div class="developer-section">
+        <div class="developer-card">
+          <i
+            class="fas fa-user-ninja fa-3x"
+            style="color: #ff416c; margin-bottom: 15px"
+          ></i>
+          <h2>Jan Erika P. Gemilo</h2>
+          <p>Lead Developer</p>
+        </div>
+
+        <div class="developer-card">
+          <i
+            class="fas fa-user-ninja fa-3x"
+            style="color: #ff416c; margin-bottom: 15px"
+          ></i>
+          <h2>Eleazar Solon Cane</h2>
+          <p>Game Designer</p>
+        </div>
+
+        <div class="developer-card">
+          <i
+            class="fas fa-user-astronaut fa-3x"
+            style="color: #ff416c; margin-bottom: 15px"
+          ></i>
+          <h2>Hannielyn Mission Barro</h2>
+          <p>UI/UX Designer</p>
+        </div>
+      </div>
+
+      <button id="back-to-menu">
+        <i class="fas fa-arrow-left"></i> Back to Menu
+      </button>
+    </section>
+
+    <script>
+      document.getElementById("back-to-menu").addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+    </script>
+    <script src="./menu.js" type="module"></script>
+  </body>
+</html>
